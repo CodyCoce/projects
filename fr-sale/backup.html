@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="http://flightrising.com/favicon.ico" type="image/x-icon">
+<link rel="icon" href="http://flightrising.com/favicon.ico" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>FlightRising Trading</title>
+<style>
+body {margin:0;padding:20px;background-color:#EDE8D7;}
+table {width:100%;}
+#card-container {display:block;margin:0px 20px;}
+#card {
+	border-radius:30px;
+	background-color:#FFE8D6;
+	border:solid 2px #000;
+	width:300px;
+	-moz-box-shadow:inset 0 0 10px #888;
+	-webkit-box-shadow:inset 0 0 10px #888;
+	box-shadow:inset 0 0 10px #888;
+	padding:15px;
+}
+#card-image {padding-bottom:20px;}
+#card-image img {width:300px;height:300px;}
+#card-text {font-size:20px;vertical-align:text-bottom;}
+#card-text img {width:15px;height:15px;}
+
+.td-l {text-align:left;font-weight:bold;}
+.td-m {text-align:right;width:15px;}
+.td-r {text-align:right;font-weight:none;width:20px;}
+
+
+#dragon-card {
+	width:330px;
+	padding-top:20px;
+	display:flex;
+}
+input {width:100%;}
+
+.dragon {
+	display:none;
+	margin-top:-300px;
+}
+
+
+
+
+
+
+
+form {
+	padding:20px 20px 60px 10px;
+	text-align:left;
+}
+form #none, form #reserved, form #traded, form #sold {
+	float:left;
+	display:block;
+	clear:right;
+	margin-top:-15px;
+}
+
+
+#domChangeForm {opacity:0;transition:0.2s ease-out;}
+
+
+
+
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+	background-color:#D1CEBE;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #000;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #333;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 8px;
+    left: -17px;
+    font-size: 36px;
+	transition:0.3s
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+
+.remove-whitespace-header2 {
+	margin:5px 0px;
+}
+</style>
+</head>
+<body id="main">
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" id="closebtn" onclick="closeNav()">&times;</a> <input type="button" onclick="resetAllInputs()" value="Reset all">
+
+<!-- First form -->
+<form method="post" id="domChangeForm">
+<!-- The input for the name of the dragon -->
+<p><h2 class="remove-whitespace-header2">First dragon</h2><label for="dragon_name">Dragon Name</label><br>
+<input type="text" name="dragon_name" placeholder="Unnamed" required="required" /></p>
+
+<!-- The input/droplist for the gender of the dragon -->
+<p><label for="dragon_gender">Dragon Gender</label><br>
+<input name="dragon_gender" placeholder="Female"></p>
+
+<!-- The input for the level of the dragon -->
+<p><label for="dragon_level">Dragon Level</label><br>
+<input type="text" name="dragon_level" placeholder="1" required="required" /> </p>
+
+<!-- The input for the price of the dragon (treasure) -->
+<p><label for="treasure_price">Treasure Price</label><br>
+<input type="text" name="treasure_price" placeholder="5000" required="required" /></p>
+
+<!-- The input for the price of the dragon (gems) -->
+<p><label for="gem_price">Gem Price</label><br>
+<input type="text" name="gem_price" placeholder="5" required="required" /></p>
+
+<!-- The input for the image of the dragon -->
+<p><label for="dragon_image">Dragon URL</label><br>
+<input type="text" name="dragon_image" placeholder="http://flightrising.com/main.php?p=lair&id=189514&tab=dragon&did=15861483" required="required" /></p>
+
+<hr>
+
+<p><label>None:</label><br>
+<input type="radio" id="none" name="yesno" checked onclick="noneFunction()"></p>
+
+<p><label>Reserved:</label><br>
+<input type="radio" id="reserved" name="yesno" onclick="reservedFunction()"></p>
+
+<p><label>Traded:</label><br>
+<input type="radio" id="traded" name="yesno" onclick="tradedFunction()"></p>
+
+<p><label>Sold:</label><br>
+<input type="radio" id="sold" name="yesno" onclick="soldFunction()"></p>
+</form>
+
+
+<!-- Second form -->
+<form method="post" id="domChangeForm2">
+<!-- The input for the name of the dragon -->
+<p><h2 class="remove-whitespace-header2">Second dragon</h2><label for="dragon_name2">Dragon Name</label><br>
+<input type="text" name="dragon_name2" placeholder="Unnamed" required="required" /></p>
+
+<!-- The input/droplist for the gender of the dragon -->
+<p><label for="dragon_gender2">Dragon Gender</label><br>
+<input name="dragon_gender2" placeholder="Female"></p>
+
+<!-- The input for the level of the dragon -->
+<p><label for="dragon_level2">Dragon Level</label><br>
+<input type="text" name="dragon_level2" placeholder="1" required="required" /></p>
+
+<!-- The input for the price of the dragon (treasure) -->
+<p><label for="treasure_price2">Treasure Price</label><br>
+<input type="text" name="treasure_price2" placeholder="5000" required="required" /></p>
+
+<!-- The input for the price of the dragon (gems) -->
+<p><label for="gem_price2">Gem Price</label><br>
+<input type="text" name="gem_price2" placeholder="5" required="required" /></p>
+
+<!-- The input for the image of the dragon -->
+<p><label for="dragon_image2">Dragon URL</label><br>
+<input type="text" name="dragon_image2" placeholder="http://flightrising.com/main.php?p=lair&id=189514&tab=dragon&did=15861483" required="required" /></p>
+
+<hr>
+
+<p><label>None:</label><br>
+<input type="radio" id="none" name="yesno" checked onclick="noneFunction2()"></p>
+
+<p><label>Reserved:</label><br>
+<input type="radio" id="reserved" name="yesno" onclick="reservedFunction2()"></p>
+
+<p><label>Traded:</label><br>
+<input type="radio" id="traded" name="yesno" onclick="tradedFunction2()"></p>
+
+<p><label>Sold:</label><br>
+<input type="radio" id="sold" name="yesno" onclick="soldFunction2()"></p>
+</form>
+
+
+<!-- Third form -->
+<form method="post" id="domChangeForm3">
+<!-- The input for the name of the dragon -->
+<p><h2 class="remove-whitespace-header2">Third dragon</h2><label for="dragon_name3">Dragon Name</label><br>
+<input type="text" name="dragon_name3" placeholder="Unnamed" required="required" /></p>
+
+<!-- The input/droplist for the gender of the dragon -->
+<p><label for="dragon_gender3">Dragon Gender</label><br>
+<input name="dragon_gender3" placeholder="Female"></p>
+
+<!-- The input for the level of the dragon -->
+<p><label for="dragon_level3">Dragon Level</label><br>
+<input type="text" name="dragon_level3" placeholder="1" required="required" /></p>
+
+<!-- The input for the price of the dragon (treasure) -->
+<p><label for="treasure_price3">Treasure Price</label><br>
+<input type="text" name="treasure_price3" placeholder="5000" required="required" /</p>
+
+<!-- The input for the price of the dragon (gems) -->
+<p><label for="gem_price3">Gem Price</label><br>
+<input type="text" name="gem_price3" placeholder="5" required="required" /></p>
+
+<!-- The input for the image of the dragon -->
+<p><label for="dragon_image3">Dragon URL</label><br>
+<input type="text" name="dragon_image3" placeholder="http://flightrising.com/main.php?p=lair&id=189514&tab=dragon&did=15861483" required="required" /></p>
+
+<hr>
+
+<p><label>None:</label><br>
+<input type="radio" id="none" name="yesno" checked onclick="noneFunction3()"></p>
+
+<p><label>Reserved:</label><br>
+<input type="radio" id="reserved" name="yesno" onclick="reservedFunction3()"></p>
+
+<p><label>Traded:</label><br>
+<input type="radio" id="traded" name="yesno" onclick="tradedFunction3()"></p>
+
+<p><label>Sold:</label><br>
+<input type="radio" id="sold" name="yesno" onclick="soldFunction3()"></p>
+</form>
+
+
+<!-- Fourth form -->
+<form method="post" id="domChangeForm4">
+<!-- The input for the name of the dragon -->
+<p><h2 class="remove-whitespace-header2">Fourth dragon</h2><label for="dragon_name4">Dragon Name</label><br>
+<input type="text" name="dragon_name4" placeholder="Unnamed" required="required" /></p>
+
+<!-- The input/droplist for the gender of the dragon -->
+<p><label for="dragon_gender4">Dragon Gender</label><br>
+<input name="dragon_gender4" placeholder="Female"></p>
+
+<!-- The input for the level of the dragon -->
+<p><label for="dragon_level4">Dragon Level</label><br>
+<input type="text" name="dragon_level4" placeholder="1" required="required" /></p>
+
+<!-- The input for the price of the dragon (treasure) -->
+<p><label for="treasure_price4">Treasure Price</label><br>
+<input type="text" name="treasure_price4" placeholder="5000" required="required" /></p>
+
+<!-- The input for the price of the dragon (gems) -->
+<p><label for="gem_price4">Gem Price</label><br>
+<input type="text" name="gem_price4" placeholder="5" required="required" /></p>
+
+<!-- The input for the image of the dragon -->
+<p><label for="dragon_image4">Dragon URL</label><br>
+<input type="text" name="dragon_image4" placeholder="http://flightrising.com/main.php?p=lair&id=189514&tab=dragon&did=15861483" required="required" /></p>
+
+<hr>
+
+<p><label>None:</label><br>
+<input type="radio" id="none" name="yesno" checked onclick="noneFunction4()"></p>
+
+<p><label>Reserved:</label><br>
+<input type="radio" id="reserved" name="yesno" onclick="reservedFunction4()"></p>
+
+<p><label>Traded:</label><br>
+<input type="radio" id="traded" name="yesno" onclick="tradedFunction4()"></p>
+
+<p><label>Sold:</label><br>
+<input type="radio" id="sold" name="yesno" onclick="soldFunction4()"></p>
+</form>
+
+
+<p><h2 class="remove-whitespace-header2">Fifth dragon</h2><form method="post" id="domChangeForm5"><p><label for="dragon_name5">Dragon Name</label><br><input type="text" name="dragon_name5" placeholder="Unnamed" required="required" /></p><p><label for="dragon_gender5">Dragon Gender</label><br><input name="dragon_gender5" placeholder="Female"></p><p><label for="dragon_level5">Dragon Level</label><br><input type="text" name="dragon_level5" placeholder="1" required="required" /></p><p><label for="treasure_price5">Treasure Price</label><br><input type="text" name="treasure_price5" placeholder="5000" required="required" /></p><p><label for="gem_price5">Gem Price</label><br><input type="text" name="gem_price5" placeholder="5" required="required" /></p><p><label for="dragon_image5">Dragon URL</label><br><input type="text" name="dragon_image5" placeholder="http://flightrising.com/main.php?p=lair&id=189514&tab=dragon&did=15861483" required="required" /></p><hr><p><label>None:</label><br><input type="radio" id="none" name="yesno" checked onclick="noneFunction5()"></p><p><label>Reserved:</label><br><input type="radio" id="reserved" name="yesno" onclick="reservedFunction5()"></p><p><label>Traded:</label><br><input type="radio" id="traded" name="yesno" onclick="tradedFunction5()"></p><p><label>Sold:</label><br><input type="radio" id="sold" name="yesno" onclick="soldFunction5()"></p></form>
+</div>
+
+<span style="font-size:30px;cursor:pointer;transition:0.3s;" onclick="openNav()" id="openNav">&#9776;</span>
+
+
+
+
+
+
+
+<div id="dragon-card">
+<!-- First card -->
+<div id="card-container">
+<div id="card">
+<!-- Image of the dragon -->
+<div id="card-image"><img src="media/blank female guardian.png" alt="dragon-image" class="dragon-image">
+
+<img src="media/reserved.png" alt="dragon-image-reserved" class="dragon" id="dragon-image-reserved">
+<img src="media/traded.png" alt="dragon-image-traded" class="dragon" id="dragon-image-traded">
+<img src="media/sold.png" alt="dragon-image-sold" class="dragon" id="dragon-image-sold">
+
+
+
+</div>
+<div id="card-text">
+<table><tbody>
+<!-- Name of the dragon -->
+<tr class="name">
+<td class="td-l">Name: </td>
+<td class="td-r" colspan="2"><span class="dragon-name">Unnamed</span></td>
+</tr>
+<!-- Gender of the dragon -->
+<tr class="gender">
+<td class="td-l">Gender: </td>
+<td class="td-m"></td>
+<td class="td-r"><span class="dragon-gender">Female</span></td>
+</tr>
+<!-- Level of the dragon -->
+<tr class="name">
+<td class="td-l">Level: </td>
+<td class="td-r" colspan="2"><span class="dragon-level">1</span></td>
+</tr>
+<!-- Price of the dragon (Treasure) -->
+<tr class="price">
+<td class="td-l">Price: </td>
+<td class="td-m"><img src="http://flightrising.com/images/layout/icon_treasure.png" alt="Treasure" title="Treasure"></td>
+<td class="td-r"><span class="dragon-price-treasure">5000</span></td>
+</tr>
+<!-- Price of the dragon (Gems) -->
+<tr class="price-2">
+<td class="td-l"></td>
+<td class="td-m"><img src="http://flightrising.com/images/layout/icon_gems.png" alt="Gems" title="Gems"></td>
+<td class="td-r"><span class="dragon-price-gems">5</span></td>
+</tr>
+</tbody></table>
+
+</div>
+
+</div>
+</div>
+
+
+
+
+<!-- Second card -->
+<div id="card-container">
+<div id="card">
+<!-- Image of the dragon -->
+<div id="card-image"><img src="media/blank female guardian.png" alt="dragon-image" class="dragon-image2">
+
+<img src="media/reserved.png" alt="dragon-image-reserved" class="dragon" id="dragon-image-reserved2">
+<img src="media/traded.png" alt="dragon-image-traded" class="dragon" id="dragon-image-traded2">
+<img src="media/sold.png" alt="dragon-image-sold" class="dragon" id="dragon-image-sold2">
+
+
+
+</div>
+<div id="card-text">
+<table><tbody>
+<!-- Name of the dragon -->
+<tr class="name">
+<td class="td-l">Name: </td>
+<td class="td-r" colspan="2"><span class="dragon-name2">Unnamed</span></td>
+</tr>
+<!-- Gender of the dragon -->
+<tr class="gender">
+<td class="td-l">Gender: </td>
+<td class="td-m"></td>
+<td class="td-r"><span class="dragon-gender2">Female</span></td>
+</tr>
+<!-- Level of the dragon -->
+<tr class="name">
+<td class="td-l">Level: </td>
+<td class="td-r" colspan="2"><span class="dragon-level2">1</span></td>
+</tr>
+<!-- Price of the dragon (Treasure) -->
+<tr class="price">
+<td class="td-l">Price: </td>
+<td class="td-m"><img src="http://flightrising.com/images/layout/icon_treasure.png" alt="Treasure" title="Treasure"></td>
+<td class="td-r"><span class="dragon-price-treasure2">5000</span></td>
+</tr>
+<!-- Price of the dragon (Gems) -->
+<tr class="price-2">
+<td class="td-l"></td>
+<td class="td-m"><img src="http://flightrising.com/images/layout/icon_gems.png" alt="Gems" title="Gems"></td>
+<td class="td-r"><span class="dragon-price-gems2">5</span></td>
+</tr>
+</tbody></table>
+
+</div>
+
+</div>
+</div>
+
+
+
+
+<!-- Third card -->
+<div id="card-container">
+<div id="card">
+<!-- Image of the dragon -->
+<div id="card-image"><img src="media/blank female guardian.png" alt="dragon-image" class="dragon-image3">
+
+<img src="media/reserved.png" alt="dragon-image-reserved" class="dragon" id="dragon-image-reserved3">
+<img src="media/traded.png" alt="dragon-image-traded" class="dragon" id="dragon-image-traded3">
+<img src="media/sold.png" alt="dragon-image-sold" class="dragon" id="dragon-image-sold3">
+
+
+
+</div>
+<div id="card-text">
+<table><tbody>
+<!-- Name of the dragon -->
+<tr class="name">
+<td class="td-l">Name: </td>
+<td class="td-r" colspan="2"><span class="dragon-name3">Unnamed</span></td>
+</tr>
+<!-- Gender of the dragon -->
+<tr class="gender">
+<td class="td-l">Gender: </td>
+<td class="td-m"></td>
+<td class="td-r"><span class="dragon-gender3">Female</span></td>
+</tr>
+<!-- Level of the dragon -->
+<tr class="name">
+<td class="td-l">Level: </td>
+<td class="td-r" colspan="2"><span class="dragon-level3">1</span></td>
+</tr>
+<!-- Price of the dragon (Treasure) -->
+<tr class="price">
+<td class="td-l">Price: </td>
+<td class="td-m"><img src="http://flightrising.com/images/layout/icon_treasure.png" alt="Treasure" title="Treasure"></td>
+<td class="td-r"><span class="dragon-price-treasure3">5000</span></td>
+</tr>
+<!-- Price of the dragon (Gems) -->
+<tr class="price-2">
+<td class="td-l"></td>
+<td class="td-m"><img src="http://flightrising.com/images/layout/icon_gems.png" alt="Gems" title="Gems"></td>
+<td class="td-r"><span class="dragon-price-gems3">5</span></td>
+</tr>
+</tbody></table>
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+<!-- Fourth card -->
+<div id="card-container">
+<div id="card">
+<!-- Image of the dragon -->
+<div id="card-image"><img src="media/blank female guardian.png" alt="dragon-image" class="dragon-image4">
+
+<img src="media/reserved.png" alt="dragon-image-reserved" class="dragon" id="dragon-image-reserved4">
+<img src="media/traded.png" alt="dragon-image-traded" class="dragon" id="dragon-image-traded4">
+<img src="media/sold.png" alt="dragon-image-sold" class="dragon" id="dragon-image-sold4">
+
+
+
+</div>
+<div id="card-text">
+<table><tbody>
+<!-- Name of the dragon -->
+<tr class="name">
+<td class="td-l">Name: </td>
+<td class="td-r" colspan="2"><span class="dragon-name4">Unnamed</span></td>
+</tr>
+<!-- Gender of the dragon -->
+<tr class="gender">
+<td class="td-l">Gender: </td>
+<td class="td-m"></td>
+<td class="td-r"><span class="dragon-gender4">Female</span></td>
+</tr>
+<!-- Level of the dragon -->
+<tr class="name">
+<td class="td-l">Level: </td>
+<td class="td-r" colspan="2"><span class="dragon-level4">1</span></td>
+</tr>
+<!-- Price of the dragon (Treasure) -->
+<tr class="price">
+<td class="td-l">Price: </td>
+<td class="td-m"><img src="http://flightrising.com/images/layout/icon_treasure.png" alt="Treasure" title="Treasure"></td>
+<td class="td-r"><span class="dragon-price-treasure4">5000</span></td>
+</tr>
+<!-- Price of the dragon (Gems) -->
+<tr class="price-2">
+<td class="td-l"></td>
+<td class="td-m"><img src="http://flightrising.com/images/layout/icon_gems.png" alt="Gems" title="Gems"></td>
+<td class="td-r"><span class="dragon-price-gems4">5</span></td>
+</tr>
+</tbody></table>
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+<!-- End of first row -->
+</div>
+
+<!-- Start second row -->
+<div id="dragon-card">
+
+<div id="card-container"><div id="card"><div id="card-image"><img src="media/blank female guardian.png" alt="dragon-image" class="dragon-image5"><img src="media/reserved.png" alt="dragon-image-reserved" class="dragon" id="dragon-image-reserved5"><img src="media/traded.png" alt="dragon-image-traded" class="dragon" id="dragon-image-traded5"><img src="media/sold.png" alt="dragon-image-sold" class="dragon" id="dragon-image-sold5"></div><div id="card-text"><table><tbody><tr class="name"><td class="td-l">Name: </td><td class="td-r" colspan="2"><span class="dragon-name5">Unnamed</span></td></tr><tr class="gender"><td class="td-l">Gender: </td><td class="td-m"></td><td class="td-r"><span class="dragon-gender5">Female</span></td></tr><tr class="name"><td class="td-l">Level: </td><td class="td-r" colspan="2"><span class="dragon-level5">1</span></td></tr><tr class="price"><td class="td-l">Price: </td><td class="td-m"><img src="http://flightrising.com/images/layout/icon_treasure.png" alt="Treasure" title="Treasure"></td><td class="td-r"><span class="dragon-price-treasure5">5000</span></td></tr><tr class="price-2"><td class="td-l"></td><td class="td-m"><img src="http://flightrising.com/images/layout/icon_gems.png" alt="Gems" title="Gems"></td><td class="td-r"><span class="dragon-price-gems5">5</span></td></tr></tbody></table></div></div></div>
+
+<!-- End of second row -->
+</div>
+
+<script>
+function resetAllInputs() {
+	document.getElementById("dragon-image-reserved").style.display = "none";
+	document.getElementById("dragon-image-traded").style.display = "none";
+	document.getElementById("dragon-image-sold").style.display = "none";
+	document.getElementById("dragon-image-reserved2").style.display = "none";
+	document.getElementById("dragon-image-traded2").style.display = "none";
+	document.getElementById("dragon-image-sold2").style.display = "none";
+	document.getElementById("dragon-image-reserved3").style.display = "none";
+	document.getElementById("dragon-image-traded3").style.display = "none";
+	document.getElementById("dragon-image-sold3").style.display = "none";
+	document.getElementById("dragon-image-reserved4").style.display = "none";
+	document.getElementById("dragon-image-traded4").style.display = "none";
+	document.getElementById("dragon-image-sold4").style.display = "none";
+	$("#none").attr("checked");
+	$("#reserved").removeAttr("checked");
+	$("#traded").removeAttr("checked");
+	$("#sold").removeAttr("checked");
+	
+	/* First form */
+    $('input[name=dragon_gender]').val('');
+	$(".dragon-gender").html("Female");
+	
+    $('input[name=dragon_name]').val('');
+	$(".dragon-name").html("Unnamed");
+	
+	$('input[name=dragon_level]').val('');
+	$(".dragon-level").html("1");
+
+    $('input[name=treasure_price]').val('');
+	$(".dragon-price-treasure").html("5000");
+
+    $('input[name=gem_price]').val('');
+	$(".dragon-price-gems").html("5");
+
+    $('input[name=dragon_image]').val('');
+	$(".dragon-image").attr("src","media/blank female guardian.png");
+	
+	/* Second form */
+	$('input[name=dragon_gender2]').val('');
+	$(".dragon-gender2").html("Female");
+	
+    $('input[name=dragon_name2]').val('');
+	$(".dragon-name2").html("Unnamed");
+	
+	$('input[name=dragon_level2]').val('');
+	$(".dragon-level2").html("1");
+
+    $('input[name=treasure_price2]').val('');
+	$(".dragon-price-treasure2").html("5000");
+
+    $('input[name=gem_price2]').val('');
+	$(".dragon-price-gems2").html("5");
+
+    $('input[name=dragon_image2]').val('');
+	$(".dragon-image2").attr("src","media/blank female guardian.png");
+	
+	/* Third form */
+	$('input[name=dragon_gender3]').val('');
+	$(".dragon-gender3").html("Female");
+	
+    $('input[name=dragon_name3]').val('');
+	$(".dragon-name3").html("Unnamed");
+	
+	$('input[name=dragon_level3]').val('');
+	$(".dragon-level3").html("1");
+
+    $('input[name=treasure_price3]').val('');
+	$(".dragon-price-treasure3").html("5000");
+
+    $('input[name=gem_price3]').val('');
+	$(".dragon-price-gems3").html("5");
+
+    $('input[name=dragon_image3]').val('');
+	$(".dragon-image3").attr("src","media/blank female guardian.png");
+	
+	/* Fourth form */
+	$('input[name=dragon_gender4]').val('');
+	$(".dragon-gender4").html("Female");
+	
+    $('input[name=dragon_name4]').val('');
+	$(".dragon-name4").html("Unnamed");
+	
+	$('input[name=dragon_level4]').val('');
+	$(".dragon-level4").html("1");
+
+    $('input[name=treasure_price4]').val('');
+	$(".dragon-price-treasure4").html("5000");
+
+    $('input[name=gem_price4]').val('');
+	$(".dragon-price-gems4").html("5");
+
+    $('input[name=dragon_image4]').val('');
+	$(".dragon-image4").attr("src","media/blank female guardian.png");
+	
+	$("input[name=dragon_gender5]").val("");$(".dragon-gender5").html("Female");$("input[name=dragon_name5]").val("");$(".dragon-name5").html("Unnamed");$("input[name=dragon_level5]").val("");$(".dragon-level5").html("1");$("input[name=treasure_price5]").val("");$(".dragon-price-treasure5").html("5000");$("input[name=gem_price5]").val("");$(".dragon-price-gems5").html("5");$("input[name=dragon_image5]").val("");$(".dragon-image5").attr("src","media/blank female guardian.png");document.getElementById("dragon-image-reserved5").style.display = "none";document.getElementById("dragon-image-traded5").style.display = "none";document.getElementById("dragon-image-sold5").style.display = "none";
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+function noneFunction() {
+    document.getElementById("dragon-image-reserved").style.display = "none";
+	document.getElementById("dragon-image-traded").style.display = "none";
+	document.getElementById("dragon-image-sold").style.display = "none";
+}
+
+function reservedFunction() {
+    document.getElementById("dragon-image-reserved").style.display = "block";
+	document.getElementById("dragon-image-traded").style.display = "none";
+	document.getElementById("dragon-image-sold").style.display = "none";
+}
+
+function tradedFunction() {
+    document.getElementById("dragon-image-reserved").style.display = "none";
+	document.getElementById("dragon-image-traded").style.display = "block";
+	document.getElementById("dragon-image-sold").style.display = "none";
+}
+
+function soldFunction() {
+    document.getElementById("dragon-image-reserved").style.display = "none";
+	document.getElementById("dragon-image-traded").style.display = "none";
+	document.getElementById("dragon-image-sold").style.display = "block";
+}
+
+
+function noneFunction2() {
+    document.getElementById("dragon-image-reserved2").style.display = "none";
+	document.getElementById("dragon-image-traded2").style.display = "none";
+	document.getElementById("dragon-image-sold2").style.display = "none";
+}
+
+function reservedFunction2() {
+    document.getElementById("dragon-image-reserved2").style.display = "block";
+	document.getElementById("dragon-image-traded2").style.display = "none";
+	document.getElementById("dragon-image-sold2").style.display = "none";
+}
+
+function tradedFunction2() {
+    document.getElementById("dragon-image-reserved2").style.display = "none";
+	document.getElementById("dragon-image-traded2").style.display = "block";
+	document.getElementById("dragon-image-sold2").style.display = "none";
+}
+
+function soldFunction2() {
+    document.getElementById("dragon-image-reserved2").style.display = "none";
+	document.getElementById("dragon-image-traded2").style.display = "none";
+	document.getElementById("dragon-image-sold2").style.display = "block";
+}
+
+function noneFunction3() {
+    document.getElementById("dragon-image-reserved3").style.display = "none";
+	document.getElementById("dragon-image-traded3").style.display = "none";
+	document.getElementById("dragon-image-sold3").style.display = "none";
+}
+
+function reservedFunction3() {
+    document.getElementById("dragon-image-reserved3").style.display = "block";
+	document.getElementById("dragon-image-traded3").style.display = "none";
+	document.getElementById("dragon-image-sold3").style.display = "none";
+}
+
+function tradedFunction3() {
+    document.getElementById("dragon-image-reserved3").style.display = "none";
+	document.getElementById("dragon-image-traded3").style.display = "block";
+	document.getElementById("dragon-image-sold3").style.display = "none";
+}
+
+function soldFunction3() {
+    document.getElementById("dragon-image-reserved3").style.display = "none";
+	document.getElementById("dragon-image-traded3").style.display = "none";
+	document.getElementById("dragon-image-sold3").style.display = "block";
+}
+
+function noneFunction4() {
+    document.getElementById("dragon-image-reserved4").style.display = "none";
+	document.getElementById("dragon-image-traded4").style.display = "none";
+	document.getElementById("dragon-image-sold4").style.display = "none";
+}
+
+function reservedFunction4() {
+    document.getElementById("dragon-image-reserved4").style.display = "block";
+	document.getElementById("dragon-image-traded4").style.display = "none";
+	document.getElementById("dragon-image-sold4").style.display = "none";
+}
+
+function tradedFunction4() {
+    document.getElementById("dragon-image-reserved4").style.display = "none";
+	document.getElementById("dragon-image-traded4").style.display = "block";
+	document.getElementById("dragon-image-sold4").style.display = "none";
+}
+
+function soldFunction4() {
+    document.getElementById("dragon-image-reserved4").style.display = "none";
+	document.getElementById("dragon-image-traded4").style.display = "none";
+	document.getElementById("dragon-image-sold4").style.display = "block";
+}
+
+function reservedFunction5() {
+	document.getElementById("dragon-image-reserved5").style.display = "block";
+	document.getElementById("dragon-image-traded5").style.display = "none";
+	document.getElementById("dragon-image-sold5").style.display = "none";
+}
+
+function tradedFunction5() {
+	document.getElementById("dragon-image-reserved5").style.display = "none";
+	document.getElementById("dragon-image-traded5").style.display = "block";
+	document.getElementById("dragon-image-sold5").style.display = "none";
+}
+
+function soldFunction5() {
+	document.getElementById("dragon-image-reserved5").style.display = "none";
+	document.getElementById("dragon-image-traded5").style.display = "none";
+	document.getElementById("dragon-image-sold5").style.display = "block";
+}
+
+
+/* The timer when typing in the input fields */
+pauseTime = 600;
+
+/* The name */
+$('input[name=dragon_name]').keyup(debounce(function(event){
+  $('.dragon-name').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The gender */
+$('input[name=dragon_gender]').keyup(debounce(function(event){
+  $('.dragon-gender').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The level */
+$('input[name=dragon_level]').keyup(debounce(function(event){
+  $('.dragon-level').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The treasure price */
+$('input[name=treasure_price]').keyup(debounce(function(event){
+  $('.dragon-price-treasure').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The gem price */
+$('input[name=gem_price]').keyup(debounce(function(event){
+  $('.dragon-price-gems').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The image */
+$('input[name=dragon_image]').keyup(debounce(function(event){
+  $('.dragon-image').attr( "src",this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+
+
+/* The name */
+$('input[name=dragon_name2]').keyup(debounce(function(event){
+  $('.dragon-name2').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The gender */
+$('input[name=dragon_gender2]').keyup(debounce(function(event){
+  $('.dragon-gender2').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The level */
+$('input[name=dragon_level2]').keyup(debounce(function(event){
+  $('.dragon-level2').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The treasure price */
+$('input[name=treasure_price2]').keyup(debounce(function(event){
+  $('.dragon-price-treasure2').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The gem price */
+$('input[name=gem_price2]').keyup(debounce(function(event){
+  $('.dragon-price-gems2').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The image */
+$('input[name=dragon_image2]').keyup(debounce(function(event){
+  $('.dragon-image2').attr( "src",this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+
+
+
+/* The name */
+$('input[name=dragon_name3]').keyup(debounce(function(event){
+  $('.dragon-name3').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The gender */
+$('input[name=dragon_gender3]').keyup(debounce(function(event){
+  $('.dragon-gender3').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The level */
+$('input[name=dragon_level3]').keyup(debounce(function(event){
+  $('.dragon-level3').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The treasure price */
+$('input[name=treasure_price3]').keyup(debounce(function(event){
+  $('.dragon-price-treasure3').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The gem price */
+$('input[name=gem_price3]').keyup(debounce(function(event){
+  $('.dragon-price-gems3').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The image */
+$('input[name=dragon_image3]').keyup(debounce(function(event){
+  $('.dragon-image3').attr( "src",this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+
+
+
+
+/* The name */
+$('input[name=dragon_name4]').keyup(debounce(function(event){
+  $('.dragon-name4').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The gender */
+$('input[name=dragon_gender4]').keyup(debounce(function(event){
+  $('.dragon-gender4').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The level */
+$('input[name=dragon_level4]').keyup(debounce(function(event){
+  $('.dragon-level4').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The treasure price */
+$('input[name=treasure_price4]').keyup(debounce(function(event){
+  $('.dragon-price-treasure4').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The gem price */
+$('input[name=gem_price4]').keyup(debounce(function(event){
+  $('.dragon-price-gems4').text( this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+/* The image */
+$('input[name=dragon_image4]').keyup(debounce(function(event){
+  $('.dragon-image4').attr( "src",this.value );
+},pauseTime));
+
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    var context = this, args = arguments;
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  };
+}
+
+$("input[name=dragon_name5]").keyup(debounce(function(event){$(".dragon-name5").text( this.value );},pauseTime));function debounce(fn, delay) {var timer = null;return function () {var context = this, args = arguments;clearTimeout(timer);timer = setTimeout(function () {fn.apply(context, args);}, delay);};}$("input[name=dragon_gender5]").keyup(debounce(function(event){$(".dragon-gender5").text( this.value );},pauseTime));function debounce(fn, delay) {var timer = null;return function () {var context = this, args = arguments;clearTimeout(timer);timer = setTimeout(function () {fn.apply(context, args);}, delay);};}$("input[name=dragon_level5]").keyup(debounce(function(event){$(".dragon-level5").text( this.value );},pauseTime));function debounce(fn, delay) {var timer = null;return function () {var context = this, args = arguments;clearTimeout(timer);timer = setTimeout(function () {fn.apply(context, args);}, delay);};}$("input[name=treasure_price5]").keyup(debounce(function(event){$(".dragon-price-treasure5").text( this.value );},pauseTime));function debounce(fn, delay) {var timer = null;return function () {var context = this, args = arguments;clearTimeout(timer);timer = setTimeout(function () {fn.apply(context, args);}, delay);};}$("input[name=gem_price5]").keyup(debounce(function(event){$(".dragon-price-gems5").text( this.value );},pauseTime));function debounce(fn, delay) {var timer = null;return function () {var context = this, args = arguments;clearTimeout(timer);timer = setTimeout(function () {fn.apply(context, args);}, delay);};}$("input[name=dragon_image5]").keyup(debounce(function(event){$(".dragon-image5").attr( "src",this.value );},pauseTime));function debounce(fn, delay) {var timer = null;return function () {var context = this, args = arguments;clearTimeout(timer);timer = setTimeout(function () {fn.apply(context, args);}, delay);};};
+
+
+$(document).ready(init);
+  
+  $('#dragon_gender_reset').click(function() {
+    $('input[name=dragon_gender]').val('');
+	$(".dragon-gender").html("Female");
+  });
+  
+  $('#dragon_name_reset').click(function() {
+    $('input[name=dragon_name]').val('');
+	$(".dragon-name").html("Unnamed");
+  });
+
+  $('#dragon_treasure_reset').click(function() {
+    $('input[name=treasure_price]').val('');
+	$(".dragon-price-treasure").html("5000");
+  });
+  
+  $('#dragon_level_reset').click(function() {
+    $('input[name=dragon_level]').val('');
+	$(".dragon-level").html("1");
+  });
+  
+  $('#dragon_gems_reset').click(function() {
+    $('input[name=gem_price]').val('');
+	$(".dragon-price-gems").html("5");
+  });
+  
+  $('#dragon_image_reset').click(function() {
+    $('input[name=dragon_image]').val('');
+	$(".dragon-image").attr("src","media/blank female guardian.png");
+  });
+  
+$(document).ready(init);
+
+  $('#dragon_gender_reset2').click(function() {
+    $('input[name=dragon_gender2]').val('');
+	$(".dragon-gender2").html("Female");
+  });
+  
+  $('#dragon_name_reset2').click(function() {
+    $('input[name=dragon_name2]').val('');
+	$(".dragon-name2").html("Unnamed");
+  });
+
+  $('#dragon_treasure_reset2').click(function() {
+    $('input[name=treasure_price2]').val('');
+	$(".dragon-price-treasure2").html("5000");
+  });
+  
+  $('#dragon_level_reset2').click(function() {
+    $('input[name=dragon_level2]').val('');
+	$(".dragon-level2").html("1");
+  });
+  
+  $('#dragon_gems_reset2').click(function() {
+    $('input[name=gem_price2]').val('');
+	$(".dragon-price-gems2").html("5");
+  });
+  
+  $('#dragon_image_reset2').click(function() {
+    $('input[name=dragon_image2]').val('');
+	$(".dragon-image2").attr("src","media/blank female guardian.png");
+  });
+  
+$(document).ready(init);
+
+  $('#dragon_gender_reset3').click(function() {
+    $('input[name=dragon_gender3]').val('');
+	$(".dragon-gender3").html("Female");
+  });
+  
+  $('#dragon_name_reset3').click(function() {
+    $('input[name=dragon_name3]').val('');
+	$(".dragon-name3").html("Unnamed");
+  });
+
+  $('#dragon_treasure_reset3').click(function() {
+    $('input[name=treasure_price3]').val('');
+	$(".dragon-price-treasure3").html("5000");
+  });
+  
+  $('#dragon_level_reset3').click(function() {
+    $('input[name=dragon_level3]').val('');
+	$(".dragon-level3").html("1");
+  });
+  
+  $('#dragon_gems_reset3').click(function() {
+    $('input[name=gem_price3]').val('');
+	$(".dragon-price-gems3").html("5");
+  });
+  
+  $('#dragon_image_reset3').click(function() {
+    $('input[name=dragon_image3]').val('');
+	$(".dragon-image3").attr("src","media/blank female guardian.png");
+  });
+  
+$(document).ready(init);
+
+  $('#dragon_gender_reset4').click(function() {
+    $('input[name=dragon_gender4]').val('');
+	$(".dragon-gender4").html("Female");
+  });
+  
+  $('#dragon_name_reset4').click(function() {
+    $('input[name=dragon_name4]').val('');
+	$(".dragon-name4").html("Unnamed");
+  });
+
+  $('#dragon_treasure_reset4').click(function() {
+    $('input[name=treasure_price4]').val('');
+	$(".dragon-price-treasure4").html("5000");
+  });
+  
+  $('#dragon_level_reset4').click(function() {
+    $('input[name=dragon_level4]').val('');
+	$(".dragon-level4").html("1");
+  });
+  
+  $('#dragon_gems_reset4').click(function() {
+    $('input[name=gem_price4]').val('');
+	$(".dragon-price-gems4").html("5");
+  });
+  
+  $('#dragon_image_reset4').click(function() {
+    $('input[name=dragon_image4]').val('');
+	$(".dragon-image4").attr("src","media/blank female guardian.png");
+  });
+  
+  
+  $(document).ready(init);
+  
+  $("#dragon_gender_reset5").click(function() {
+    $("input[name=dragon_gender5]").val("");
+	$(".dragon-gender5").html("Female");
+  });
+  
+  $("#dragon_name_reset5").click(function() {
+	$("input[name=dragon_name5]").val("");
+	$(".dragon-name5").html("Unnamed");
+  });
+  
+  $("#dragon_treasure_reset5").click(function() {
+	$("input[name=treasure_price5]").val("");
+	$(".dragon-price-treasure5").html("5000");
+  });
+  $("#dragon_level_reset5").click(function() {
+	$("input[name=dragon_level5]").val("");
+	$(".dragon-level5").html("1");
+  });
+  $("#dragon_gems_reset5").click(function() {
+	$("input[name=gem_price5]").val("");
+	$(".dragon-price-gems5").html("5");
+	
+  });$("#dragon_image_reset5").click(function() {
+	$("input[name=dragon_image5]").val("");
+	$(".dragon-image5").attr("src","media/blank female guardian.png");
+  });
+  
+  
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+	document.getElementById("openNav").style.opacity = "0";
+	document.getElementById("openNav").style.pointerEvents = "none";
+	document.getElementById("domChangeForm").style.opacity = "1";
+	document.getElementById("closebtn").style.opacity = "1";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+	document.getElementById("openNav").style.opacity = "1";
+	document.getElementById("openNav").style.pointerEvents = "auto";
+	document.getElementById("domChangeForm").style.opacity = "0";
+	document.getElementById("closebtn").style.opacity = "0";
+}
+
+
+/* Image of the dragon */
+// $(".dragon").attr("src","http://flightrising.com/rendern/350/439462/43946135_350.png?mtime=W2Jb3gACXMM");
+
+/* Alternate name for image */
+// $(".dragon").attr("alt","purple spiral");
+
+/* Name of the dragon */
+// $(".dragon-name").html("Unnamed");
+
+/* Gender of the dragon */
+// $(".dragon-gender").html("Male");
+
+/* Price of the dragon (Treasure) */
+// $(".dragon-price-treasure").html("8000");
+
+/* Price of the dragon (Gems} */
+// $(".dragon-price-gems").html("4");
+</script>
+</body>
+</html>

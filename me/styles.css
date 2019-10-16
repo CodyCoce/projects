@@ -1,0 +1,391 @@
+html {
+	height:100%;
+}
+body {
+	margin:0;
+	padding:0 0 80px 0;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	background-size:cover;
+	background-repeat:no-repeat;
+	font-family:'Arial', 'Georgia', 'Helvetica';
+}
+header, footer {
+	color:white;
+	background-color:#555;
+	padding:20px;
+	font-weight:bold;
+}
+nav {
+	background-image:linear-gradient(#444, #222);
+	text-align:right;
+	padding:20px;
+}
+nav a {
+	color:white;
+	font-weight:bold;
+	text-decoration:none;
+	margin:0 10px;
+	padding:10px;
+	border-radius:5px;
+}
+header {
+	text-align:center;
+	font-size:40px;
+	height:100%;
+}
+footer {
+	position:fixed;
+	bottom:0;
+	left:0;
+	width:100%;
+}
+.title {
+	font-family:'Verdana', 'Georgia', 'Helvetica';
+}
+.mobile-header {
+	font-size:30px;
+}
+.mobile-footer {
+	padding:0px 20px;
+}
+.mobile-nav {
+	text-align:center;
+}
+
+/* Profiles List (Desktop) */
+.desktop .profiles-list {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:50px 0;
+}
+.desktop .profiles-list ul {
+	list-style:none;
+	padding:10px 20px;
+	margin:0;
+	border-radius:5px;
+	transition:0.3s;
+	color:white;
+	width:30%;
+	font-size:20px;
+}
+.desktop .profiles-list ul li:first-child {
+	font-weight:bold;
+	border-bottom:none;
+}
+.desktop .profiles-list ul li:first-child:hover {
+	border-bottom:none;
+}
+.desktop .profiles-list ul li {
+	border-bottom:solid 1px #777;
+}
+.desktop .profiles-list ul li:hover {
+	border-bottom:solid 1px #afafaf;
+}
+.desktop .profiles-list ul li a {
+	color:white;
+	float:right;
+}
+
+/* Profiles List (Mobile) */
+.mobile .profiles-list {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:30px 0;
+}
+.mobile .profiles-list ul {
+	list-style:none;
+	padding:5px 10px;
+	margin:0;
+	border-radius:5px;
+	transition:0.3s;
+	color:white;
+	width:90%;
+	font-size:15px;
+}
+.mobile .profiles-list ul li:first-child {
+	font-weight:bold;
+	border-bottom:none;
+}
+.mobile .profiles-list ul li {
+	border-bottom:solid 1px #777;
+}
+.mobile .profiles-list ul li a {
+	color:white;
+	float:right;
+}
+
+
+.ohno {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:100px 0;
+}
+.desktop .ohno p {
+	list-style:none;
+	padding:10px 20px;
+	margin:0;
+	border-radius:5px;
+	transition:0.3s;
+	width:20%;
+	color:white;
+}
+.mobile .ohno p {
+	list-style:none;
+	padding:10px 20px;
+	margin:0;
+	border-radius:5px;
+	transition:0.3s;
+	width:50%;
+	color:white;
+}
+
+
+/* About.php (Desktop) */
+.desktop .information {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:50px 0;
+}
+.desktop .information div {
+	border-radius:10px;
+	color:white;
+	padding:0 20px;
+	text-align:center;
+	height:0%;
+	width:30%;
+}
+.desktop .information div a {
+	color:white;
+}
+
+/* About.php (Mobile) */
+.mobile .information {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:20px 0;
+}
+.mobile .information div {
+	border-radius:10px;
+	color:white;
+	padding:0 10px;
+	text-align:center;
+	height:0%;
+	width:90%;
+}
+.mobile .information div a {
+	color:white;
+}
+
+
+/* Signup.php (Desktop) */
+.form-container {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:50px 0;
+}
+.form-container div {
+	border-radius:10px;
+	color:white;
+	padding:0 20px;
+	text-align:center;
+	height:0%;
+}
+.form-container div a {
+	color:white;
+}
+.signup {
+	
+}
+.signin, .error, .profile {
+	display:none;
+}
+.error, .error-signup {
+	color:red;
+	text-shadow:0px 0px 4px black;
+}
+
+.profile {
+	width:100%;
+	display:flex !important;
+	justify-content:space-evenly;
+	padding:30px 0;
+}
+
+.hide {
+	display:none !important;
+}
+.profile div {
+	border-radius:10px;
+	color:white;
+	padding:5px 20px;
+	margin:10px 0;
+	text-align:center;
+}
+.signout, .color-choose {
+	border-radius:10px;
+	color:white;
+	padding:5px 20px;
+	margin:30px 10%;
+	text-align:center;
+}
+.signout a, .color-choose a {
+	color:white;
+	font-size:30px;
+	font-weight:bold;
+}
+
+.red {background-color:#FF4B4A;}
+.pink {background-color:#FB78C1;}
+.orange {background-color:#F59400;}
+.yellow {background-color:#F5F03A;}
+.green {background-color:#5DFF52;}
+.blue {background-color:#006AFF;}
+.purple {background-color:#A230FF;}
+.gray {background-color:#555;}
+
+/* Signup.php (Mobile) */
+.mobile .form-container {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:50px 0;
+}
+.mobile .form-container div {
+	background-color:#555;
+	border-radius:10px;
+	color:white;
+	padding:0 20px;
+	text-align:center;
+	height:0%;
+}
+.mobile .form-container div a {
+	color:white;
+}
+.mobile .signup {
+	
+}
+.mobile .signin, .error, .profile {
+	display:none;
+}
+.mobile .error, .error-signup {
+	color:red;
+	text-shadow:0px 0px 4px black;
+}
+.profile-mobile {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:30px 0;
+}
+.profile-mobile div {
+	border-radius:10px;
+	color:white;
+	padding:5px 20px;
+	margin:10px 0;
+	text-align:center;
+	width:70%;
+}
+.profile-mobile div form h2 {
+	font-size:40px;
+}
+.profile-mobile label, .profile-mobile input[type=submit] {
+	font-size:30px;
+}
+.profile-mobile input {
+	width:80%;
+	font-size:20px;
+}
+.signout-mobile, .mobile .color-choose {
+	border-radius:10px;
+	color:white;
+	padding:5px 20px;
+	margin:30px 10%;
+	text-align:center;
+}
+.signout-mobile a {
+	color:white;
+	font-size:30px;
+	font-weight:bold;
+}
+
+
+.desktop .color-options {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:50px 0;
+}
+.desktop .color-options div {
+	list-style:none;
+	padding:10px 20px 20px 20px;
+	margin:0;
+	border-radius:5px;
+	transition:0.3s;
+	color:white;
+	width:30%;
+	font-size:20px;
+	text-align:center;
+	height:0%;
+}
+label.active {
+	box-shadow:inset 0 0 2px 1px #000 !important;
+}
+
+
+.mobile .color-options {
+	width:100%;
+	display:flex;
+	justify-content:space-evenly;
+	padding:30px 0;
+}
+.mobile .color-options div {
+	padding:0 10px 10px 10px;
+	margin:0;
+	border-radius:5px;
+	transition:0.3s;
+	color:white;
+	width:90%;
+	font-size:20px;
+	text-align:center;
+	height:0%;
+}
+.color-options .themes label {
+	color:white;
+	padding:20px 10px;
+	font-size:0px;
+	border:solid 1px black;
+	box-shadow:0 0 2px 1px #444;
+	line-height:70px;
+	margin:0 15px;
+}
+.color-options .themes label, .color-options .themes input {
+	cursor:pointer;
+}
+.color-options div a.active {
+	box-shadow:inset 0 0 3px 2px #444;
+}
+.color-options input[type=radio] {
+	opacity:0;
+}
+.color-options .submit {
+	
+}
+
+
+
+.box-color {
+	background-color:#555;
+}
+.background-color {
+	background-color:#efefef;
+}
+.text-color {
+	color:white;
+}
