@@ -1,2 +1,4 @@
 # projects
-This is my third attempt. Hopefully I don't mess up again.
+I needed a general repo to post in, so this is it.
+
+This repo contains code linked from my home page.
