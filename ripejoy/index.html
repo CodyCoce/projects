@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="description" content="This website is used to display RipeJoy's art and to allow anyone to contact the artist.">
+<meta name="keywords" content="terri,terri larner,larner,steven,steven larner,art,paint,painting,artist,artists,paintings,guitar,toy,plastic,brush,paintbrush,beautiful,stunning,lovely,ripejoy,ripejoy site,ripejoy website,ripejoy com,ripejoy dot com,terri ripejoy,ripejoy terri,ripejoy larner,">
+<meta name="author" content="Steven Larner">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="styles.css" rel="stylesheet" />
+<link href="theme.min.css" rel="stylesheet" />
+<link href="theme.css" rel="stylesheet" />
+<link href="theme.less" rel="stylesheet" />
+<link href="variables.less" rel="stylesheet" />
+<link rel="shortcut icon" href="resources/rp.ico" type="image/x-icon">
+<link rel="icon" href="resources/rj.ico" type="image/x-icon">
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<title>RipeJoy</title>
+<style>
+body {
+  padding-top: 60px;
+  padding-bottom: 40px;
+  font-family: Georgia, Constantia, Calibri;
+  background-color: #fffcce;
+}
+
+.about {border-radius:3px;padding:10px;width:98%;height:100%;font-size:25px;line-height:30px;background: linear-gradient(to bottom, #fca6e8 0%, #fb8de2 100%);color:#fff;text-shadow:0px 0px 3px #B074A2;opacity:1;}
+
+.mySlides {display: none;}
+/* Slideshow container */
+.slideshow-container {
+  width: 100%;
+  position: relative;
+}
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 10px 2px;
+  background-color: #F4B2E3;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.active {
+  background-color: #F082DF;
+}
+/* Fading animation */
+.fade2 {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@-webkit-keyframes fade2 {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+@keyframes fade2 {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+table {
+	width: 100%;
+	background-color: transparent;
+}
+#about-td {
+	width: 500px;
+	padding-top: 25px;
+	padding-left: 20px;
+	padding-right: 35px;
+	vertical-align: top;
+}
+#slideshow-td {
+	width: 150px;
+	padding-top: 25px;
+	padding-left: 40px;
+	padding-right: 20px;
+	vertical-align: top;
+}
+</style>
+</head>
+<body>
+<header>
+<img src="resources/ripejoy-sm-pink.png" alt="Ripejoy Small Pink.png" style="height:200px;margin-top:30px;background-color:white;border-radius:20px;padding:20px;opacity:0.9;">
+</header>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <div class="nav-collapse">
+        <ul class="nav">
+		<li class="dropdown">
+		<a data-toggle="dropdown" class="dropdown-toggle" href="index.html" style="margin-top:3px;">Home <i class="fas fa-caret-down"></i></a>
+		<ul class="dropdown-menu">
+              <li class="active">
+                <a href="index.html">About</i></a>
+              </li>
+            </ul>
+			</li>
+		  <li><a href="instock.php" style="margin-top:9px;">In Stock</a></li>
+		  <li><a href="contactus.php" style="margin-top:9px;">Contact Us</a></li>
+        </ul>
+      </div>
+      <!-- /.nav-collapse -->
+    </div>
+  </div>
+</div>
+
+
+<!--Logo-->
+
+
+
+<!--END-->
+<table>
+<tbody>
+<tr>
+<td id="slideshow-td">
+<div class="slideshow-container">
+
+<div class="mySlides fade2">
+  <img src="resources/whitespoon2.jpg" style="width:100%">
+</div>
+
+<div class="mySlides fade2">
+  <img src="resources/smalllemonpot.jpg" style="width:100%">
+</div>
+
+<div class="mySlides fade2">
+  <img src="resources/elephant.jpg" style="width:100%">
+</div>
+<div align="center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+</div>
+<br>
+</td>
+<!--About-->
+<td id="about-td">
+<div class="about" align="center">
+<img src="resources/paintingmama.jpg" alt="Painting Mama.jpg" style="float:left;padding:10px;height:200px;" title="Baby elephant napkin holder.">
+<p>I love painting! I paint anything and everything; nothing is safe :-) I love seeing my painted items all around the house. I also love giving painted items to friends, as gifts. Over the years I have had requests for “cheerful” art. It seems that my art makes others feel happy, too!</p>
+<p>I spent several years writing a dissertation about family directed funerals.  I balanced the sadness by wearing Lilly Pulitzer colors and prints.  I was impressed with Lilly’s quote, “Life is a party, dress for it!”  While sitting at a park day (children play while moms talk), I discovered the joy of brush tip markers.   I started making cards by coloring vines and flowers, such as the one above. Eventually I tried acrylic paint on wood, and I haven’t stopped painting since! Now that I have retired I can devote more time to painting! I am convinced that every person has wonderful art inside them, just waiting to be expressed!</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!--END-->
+
+
+<footer>
+<table align="center">
+<tbody>
+<tr class="footerlist">
+<tr class="footerlist">
+<td><p><strong>Contact</strong></p><p><a href="https://www.ebay.com/usr/larnerterri?_trksid=p2047675.l2559">Ebay</a><br><a href="contactus.php">Send an Email (Contact Us)</a></p></td>
+<td><p><strong>Resources</strong></p><p><a href="index.html">Home</a><br><a href="instock.php">In Stock</a><br><a href="contactus.php">Contact Us</a></p></td>
+<td><p><strong>Webmaster</strong><br><a href="https://www.linkedin.com/in/steven-larner-061597151/" target="_blank" title="Opens in a new tab.">Steven Larner</a></td>
+</tr>
+</tbody>
+</table>
+</footer>
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 3500); // Change image every 3.5 seconds
+}
+</script>
+</body>
+</html>
