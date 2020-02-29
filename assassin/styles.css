@@ -1,0 +1,297 @@
+html {
+	height:100%;
+}
+body {
+	margin:0;
+	padding:20px 0;
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+*, * a {
+	color:white;
+}
+h1 {font-size:60px;}
+
+.container {
+	display:flex;
+	justify-content:space-evenly;
+	-moz-justify-content:space-evenly;
+	-webkit-justify-content:space-evenly;
+	margin:0 auto;
+}
+@supports (-ms-ime-align:auto) {
+	.container, .elim_button a {
+		justify-content:center;
+	}
+	.container .btn {
+		margin:0 20px;
+	}
+}
+.btn {
+	text-decoration:none;
+	outline:none;
+}
+.menu-create, .menu-join {
+	display:none;
+}
+form {text-align:center;}
+input[type=text].btn, input[type=number].btn {background-color:white;color:black;}
+::placeholder {color:#aaa;opacity:1;}
+:-ms-input-placeholder {color:#aaa;}
+::-ms-input-placeholder {color:#aaa;}
+footer {
+	position:absolute;
+	bottom:0;
+	left:0;
+	display:flex;
+	justify-content:space-evenly;
+	width:100%;
+	display:none !important;
+}
+
+.mode p::first-letter {
+	text-transform:uppercase;
+}
+
+/* Party */
+.hide {
+	display:none;
+}
+.players {
+	font-size:25px;
+	font-weight:bold;
+}
+.refresh {
+	margin:0 30px;
+}
+li.admin {
+	font-weight:bold;
+}
+
+/* Start */
+.start {
+	padding:0 20px;
+	text-align:center;
+}
+.start p {
+	font-size:35px !important;
+	margin:10px 0;
+}
+.start .btn {
+	font-size:25px;
+}
+.start p.short {
+	padding:0 !important;
+	margin:0 !important;
+}
+.scoreboard {
+	width:100%;
+	text-align:left;
+}
+.scoreboard p {
+	font-weight:bold;
+}
+.scoreboard table {
+	width:100%;
+	background-color:#ddd;
+	font-size:30px;
+}
+.scoreboard table tr td {
+	background-color:#eee;
+	padding:3px;
+	width:100%;
+	color:#333;
+}
+.dead {
+	color:#888 !important;
+	text-decoration:line-through;
+}
+.dead .targeted_player {
+	color:#c00;
+	text-decoration:line-through;
+}
+.targeted_player {
+	color:#c00;
+}
+.elim_button {
+	color:white;
+	border-radius:50%;
+	text-decoration:none;
+	outline:none;
+	font-size:40px;
+	margin:0 auto;
+}
+.start form label img {
+	width:50px;
+	vertical-align:top;
+}
+.start form input[type=submit] {
+}
+.eliminate {
+	padding:15px 15px 5px 15px;
+}
+.eliminated {
+	background-color:#a00;
+	border:solid 10px #700;
+	padding:20px 15px 10px 15px;
+}
+.status {
+	padding:30px 0;
+	width:100%;
+	height:100%;
+	display:flex;
+	justify-content:space-evenly;
+}
+.leave-options {
+	display:block;
+	width:100%;
+}
+.kill_confirm_menu, .confirm_menu, .game_end {
+	position:fixed;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	padding:0 5px;
+	font-size:30px;
+	max-width:100%;
+	box-shadow:0 0 4px 4px rgba(0,0,0,0.3);
+	z-index:5;
+	border-radius:5px;
+	text-align:center;
+}
+.kill_confirm_menu p, .confirm_menu p, .game_end p {
+	margin:20px 0;
+}
+.kill_confirm_menu input, .kill_confirm_menu a, .confirm_menu a {
+	font-size:30px;
+	max-width:80%;
+	outline:none;
+	margin:20px 0;
+}
+.kill_confirm_menu input[type=text] {
+	color:black;
+}
+.error_menu {
+	position:fixed;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	padding:0 10px;
+	font-size:20px;
+	max-width:90%;
+	box-shadow:0 0 4px 4px rgba(0,0,0,0.3);
+	z-index:5;
+	border-radius:5px;
+	text-align:center;
+}
+.error_menu .btn {
+	font-size:20px;
+	margin:10px 0;
+	max-width:80%;
+	outline:none;
+}
+
+
+/* Rules.php */
+.rules {
+	padding:0 20px;
+}
+.rules-content {
+	display:none;
+}
+.rules ul {
+	padding:0 !important;
+	text-align:center;
+}
+.rules ul li {
+	padding:1px;
+}
+.more_rules {
+	display:none;
+}
+
+
+/* Other */
+ul {
+	font-weight:bold;
+}
+ul li {
+	font-weight:normal;
+}
+
+/* Light Mode */
+.lightmode body {
+	background-color:#9AE85F;
+}
+.lightmode .btn {
+	background-color:transparent;
+	border:white solid 2px;
+	border-radius:20px;
+	padding:5px 10px;
+}
+.lightmode .elim_button {
+	filter:drop-shadow(0 0 4px white);
+}
+.lightmode .eliminate {
+	background-color:#0a0;
+	border:solid 10px #070;
+}
+.lightmode .start .pwd, .lightmode .start .pwd strong {
+	color:#070 !important;
+}
+.lightmode .kill_confirm_menu, .lightmode .error_menu, .lightmode .confirm_menu, .lightmode .game_end {
+	background-color:#9AE85F;
+	border:solid 3px #88CC54;
+}
+
+/* Dark Mode */
+.darkmode body {
+	background-color:#8083c9;
+}
+.darkmode a.btn {
+	background-color:#999CF0;
+	text-shadow:0 0 2px black;
+	box-shadow:0 0 2px 2px rgba(0,0,0,0.5);
+	transition:0.3s;
+	border:none;
+	border-radius:10px;
+	padding:7px 12px;
+}
+.darkmode input[type=text].btn, .darkmode input[type=number].btn {
+	background-color:#999CF0;
+	box-shadow:0 0 2px 2px rgba(0,0,0,0.5);
+	transition:0.3s;
+	border:none;
+	border-radius:10px;
+	padding:7px 12px;
+	color:white;
+}
+.darkmode input[type=text].btn::placeholder, .darkmode input[type=number].btn::placeholder {
+	color:white;
+}
+.darkmode input[type=submit].btn {
+	background-color:#999CF0;
+	box-shadow:0 0 2px 2px rgba(0,0,0,0.5);
+	transition:0.3s;
+	border:none;
+	text-shadow:0 0 2px black;
+	border-radius:10px;
+	padding:7px 12px;
+}
+.darkmode .btn:hover {
+	background-color:transparent;
+}
+.darkmode .elim_button {
+	filter:drop-shadow(0 0 4px blue);
+}
+.darkmode .eliminate {
+	background-color:#44c;
+	border:solid 10px #00a;
+}
+.darkmode .start .pwd, .darkmode .start .pwd strong {
+	color:#007 !important;
+}
+.darkmode .kill_confirm_menu, .darkmode .error_menu, .darkmode .confirm_menu, .darkmode .game_end {
+	background-color:#8083c9;
+	border:solid 3px #999CF0;
+}
