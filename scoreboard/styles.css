@@ -1,0 +1,164 @@
+html {
+	height:100%;
+	width:100%;
+	background:black;
+	color:white;
+	font-family: 'Press Start 2P', cursive;
+}
+input, textarea, button, select {
+	font-family: 'Press Start 2P', cursive;
+	background-color:black;
+	color:white;
+	border:none;
+	border-bottom:white 3px solid;
+	outline:none;
+	text-align:center;
+}
+body {
+	margin:0;
+}
+
+/* For mobile phones: */
+.col {
+  width: 100%;
+}
+header p {
+	display:flex;
+	justify-content:space-evenly;
+	width:100%;
+}
+header p.imgs img {
+	display:none;
+}
+
+@media only screen and (min-width: 1200px) {
+	/* For big desktop: */
+	body {
+		padding:0 10%;
+		font-size:15px !important;
+	}
+	.col {
+		width:33%;
+	}
+	.row {
+		display:flex;
+		justify-content:space-evenly;
+	}
+	
+	header p.namco span.line {
+		border-top:solid blue 3px;
+		border-bottom:solid blue 3px;
+		padding:5px;
+		width:20%;
+	}
+	header p.imgs img {
+		display:block;
+		width:20px;
+		filter:drop-shadow(0px 0px 1px white);
+	}
+}
+@media only screen and (max-width: 1200px) and (min-width: 900px) {
+	/* For small desktop: */
+	body {
+		padding:0 10%;
+		font-size:13px;
+	}
+	.col {
+		width:50%;
+	}
+	.row {
+		display:flex;
+		justify-content:space-evenly;
+	}
+	header p.imgs img {
+		display:block;
+		width:20px;
+		filter:drop-shadow(0px 0px 1px white);
+	}
+	.game_hint {
+		display:none !important;
+	}
+	p.score_list span.id {
+		margin-left:-40px !important;
+	}
+	p.score_list span.name {
+		margin-left:-45px !important;
+	}
+	p.score_list span.score {
+		margin-left:-40px !important;
+	}
+}
+
+p.score_list span.id,p.score_list span.name,p.score_list span.score {
+	margin-left:0;
+}
+
+a {
+	color:white;
+}
+
+.game_hint {
+	display:block;
+}
+.row {
+	width:100%;
+}
+.col {
+	height:100%;
+	text-align:center;
+}
+.col .outline div {
+	background:black;
+	border:3px solid blue;
+	border-radius:10px;
+	overflow:hidden;
+	cursor:pointer;
+}
+.score_submit_form,.score_submit_form_password {
+	cursor:default !important;
+}
+.outline {
+	margin:50px 5%;
+	border:3px solid blue;
+	border-radius:13px;
+	padding:3px;
+}
+p.score_list {
+	display:flex;
+	justify-content:space-evenly;
+}
+p.score_list span {
+	width:25%;
+}
+p.score_list span img {
+	width:20px;
+	margin-top:-4px;
+}
+
+.center {
+	text-align:center;
+}
+.outline img {
+	width:100%;
+}
+.uppercase {
+	text-transform:uppercase;
+}
+
+.name {
+	text-transform:uppercase;
+}
+
+input[name=name_f],input[name=name_m],input[name=name_l],input[name=score],input[type=submit],select,input[type=password] {
+	font-size:20px;
+}
+input[name=name_f],input[name=name_m],input[name=name_l] {
+	width:8%;
+	margin:0 5px;
+}
+input[name=score],select,input[type=password] {
+	width:70%;
+}
+input[type=submit] {
+	cursor:pointer;
+}
