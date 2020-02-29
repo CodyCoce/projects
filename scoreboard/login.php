@@ -2,7 +2,7 @@
 	if (isset($_POST['submit'])) {
 		
 		$pass = $_POST['password'];
-		$true_pass = 'pacupacu_gorf';
+		$true_pass = 'not_the_real_password';
 		
 		if (empty($pass)) {
 			header("Location: record.php?empty");
