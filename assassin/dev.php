@@ -1,9 +1,9 @@
 <?php
 	require("db-login.php");
 	session_start();
-	
-	echo '<!DOCTYPE html><html lang="en" class="'.$_SESSION['mode'].'mode">';
 ?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="Assasin DESC.">
@@ -31,22 +31,27 @@
 
 <div class="updates">
 	<ul>Updates
-		<li>Added switch for "dark mode" by changing colors to make the page more readable</li>
+		<li>Updated colors</li>
 		<li>Created this new page which features bug reports, upcoming updates, and new updates!</li>
 		<li>Added rules</li>
 		<li>Added compatibility for Microsoft Edge</li>
 		<li>Added error guides</li>
-		<li>Added light mode/dark mode differences to buttons</li>
-		<li>Updated light mode to be less "Christmas-y"</li>
 		<li>Leave confirm button</li>
+		<li>Joining a game that has already started no longer breaks stuff</li>
+		<li>Users with the same name broke the system, so duplicate names are blocked</li>
+		<li>Fixed unintended bug where taken names were global</li>
+		<li>Passcode options</li>
+		<li>Fixed strange spacing issue on mobile</li>
+		
 		<ul>Supported
 			<li>Chrome</li>
 			<li>Edge</li>
+			<li>Firefox</li>
+			<li>Opera</li>
+			<li>Edge</li>
 		</ul>
 		<ul>Unsupported
-			<li>Firefox</li>
 			<li>Internet Explorer</li>
-			<li>Opera</li>
 		</ul>
 	</ul>
 </div>
@@ -55,17 +60,16 @@
 	<ul>Upcoming updates
 		<li>Better win detection</li>
 		<li>Facebook share button on win</li>
-		<li>Passcode options</li>
 		<li>Ready button</li>
 		<li>Hide names until the game starts</li>
 		<li>Vibration when eliminated</li>
+		<li>Continue lobby after game ends</li>
 	</ul>
 </div>
 
 <div class="bugs">
 	<ul>Known bugs
-		<li>Joining a game that has already started breaks stuff</li>
-		<li>Users with the same name breaks the system, so reworking the detection system must be done</li>
+		
 	</ul>
 </div>
 

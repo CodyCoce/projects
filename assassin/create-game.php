@@ -6,6 +6,8 @@
 		$party = (rand(1, 99999));
 		$admin = 1;
 		$pwd = (rand(1, 9));
+		$q = $_POST['question_create'];
+		$a = $_POST['answer_create'];
 		
 		if (empty($username)) {
 			header("Location: index.php?error=empty");
@@ -13,6 +15,14 @@
 		}
 		else if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
 			header("Location: index.php?error=name");
+			exit();
+		}
+		else if (!preg_match('/[^A-Za-z0-9_ -]*$/', $q)) {
+			header("Location: index.php?error=q&details=".$q);
+			exit();
+		}
+		else if (!preg_match('/[^A-Za-z0-9_ -]*$/', $a)) {
+			header("Location: index.php?error=a&details=".$a);
 			exit();
 		}
 		else {
@@ -32,15 +42,15 @@
 					exit();
 				}
 				else {
-					$sql = "INSERT INTO users (name, party, is_admin, code) VALUES (?, ?, ?, ?)";
+					$sql = "INSERT INTO users (name, party, is_admin, code, question, answer) VALUES (?, ?, ?, ?, ?, ?)";
 					$stmt = mysqli_stmt_init($conn);
 					if (!mysqli_stmt_prepare($stmt, $sql)) {
-					header("Location: index.php?error=sql2");
+					header("Location: index.php?error=sql2&".$q.'='.$a);
 					exit();
 				}
 				else {
 					$hashedPwd = password_hash($password, PASSWORD_DEFAULT);
-					mysqli_stmt_bind_param($stmt, "ssss", $username, $party, $admin, $pwd);
+					mysqli_stmt_bind_param($stmt, "ssssss", $username, $party, $admin, $pwd, $q, $a);
 					mysqli_stmt_execute($stmt);
 					
 					session_start();

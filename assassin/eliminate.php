@@ -11,12 +11,15 @@
 	$_SESSION['dead'] = 1;
 	
 	
+	$sql = "SELECT * FROM users WHERE party='$party' AND name='$target'"; 
+	$result = mysqli_query($conn, $sql);
+	if (mysqli_num_rows($result) > 0) {
+		while($row = mysqli_fetch_assoc($result)) {
+			$target_answer = $row['answer'];
+		}
+	}
 	
-	$sql = "SELECT * FROM users WHERE name='$target' AND party='$party'";
-	$target_pwd = mysqli_query($conn, $sql);
-	$target_code = mysqli_fetch_array($target_pwd);
-	
-	if ($pwd == $target_code['code']) {
+	if ($pwd == $target_answer) {
 		$sql = "UPDATE users SET is_dead=1 WHERE name='$target' AND party='$party'";
 		mysqli_query($conn, $sql);
 		

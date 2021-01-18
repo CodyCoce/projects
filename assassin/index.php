@@ -4,6 +4,12 @@
 	
 	if (isset($_GET['p'])) {
 		$party = $_GET['p'];
+		echo '<script>var timer = setTimeout(function() {
+			location.reload();
+		}, 10000);
+		function stopTimer() {
+			clearTimeout(timer);
+		};</script>';
 	}
 	if (isset($_SESSION['name'])) {
 		$user = $_SESSION['name'];
@@ -26,15 +32,15 @@
 	if (empty($_SESSION['pwd'])) {
 		$pwd = null;
 	}
-	if (empty($_SESSION['mode'])) {
-		$_SESSION['mode'] = 'dark';
+	if (isset($_GET['full'])) {
+		echo '<script>window.alert("Game has already started! Try again later.")</script>';
 	}
-	
-	echo '<!DOCTYPE html><html lang="en" class="'.$_SESSION['mode'].'mode">';
 ?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="description" content="Assasin DESC.">
+<meta name="description" content="Assasin is a social ice breaker game commonly played at conventions or large gatherings which promote excercise and socialization.">
 <meta name="keywords" content="assassin,gotcha,web game,web app,steven larner,steven,larner">
 <meta name="author" content="Steven Larner">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,10 +58,6 @@
 	<h1>Assassin</h1>
 </div>
 
-<div class="beta" style="text-align:center;">
-	<p>This is an unstable version of the game! If you want a more stable version, go to <a href="https://www.asn.slarner.com" onmousedown="stopTimer()">asn.slarner.com</a></p>
-</div>
-
 <div class="container menu">
 	<p><a href="javascript:void(0)" class="btn create" onmousedown="createGame()">Create Game</a></p>
 	<p><a href="javascript:void(0)" class="btn join" onmousedown="joinGame()">Join Game</a></p>
@@ -66,10 +68,6 @@
 	<p><a href="dev.php" class="btn">Dev Thoughts</a></p>
 </div>
 
-<div class="container menu mode">
-	<?php if ($_SESSION['mode'] == 'light') { echo '<p><a href="toggle-mode.php" class="dark-mode-switch btn">Enable Dark Mode</a></p>'; } else { echo '<p><a href="toggle-mode.php" class="light-mode-switch btn">Enable Light Mode</a></p>'; } ?>
-</div>
-
 <!-- Create Game -->
 <div class="container menu-create">
 	<h1>Create Game</h1>
@@ -78,6 +76,26 @@
 <div class="container menu-create">
 	<form action="create-game.php" method="post">
 		<p><input type="text" name="username_create" placeholder="Username" class="btn" /></p>
+		<p><input list="questions" id="question" name="question_create" placeholder="What is your favorite color?" class="btn" />
+			<datalist id="questions" placeholder="test" class="btn">
+			  <option value="What is your favorite color?"></option>
+			  <option value="Where did you grow up?"></option>
+			  <option value="What is your favorite genre of music?"></option>
+			  <option value="Apple or Android?"></option>
+			  <option value="What is your favorite food?"></option>
+			  <option value="What is your favorite video game?"></option>
+			  <option value="What is your dream job?"></option>
+			  <option value="Where do you want to live?"></option>
+			  <option value="What was or is your major?"></option>
+			  <option value="Where was your last vacation?"></option>
+			  <option value="What kind of car do you drive?"></option>
+			  <option value="What is your favorite song?"></option>
+			  <option value="What is one of your hobbies?"></option>
+			  <option value="What is your favorite show?"></option>
+			  <option value="Custom"></option>
+			</datalist>
+		</p>
+		<p><input type="text" name="answer_create" placeholder="Red" class="btn" /></p>
 		<p><input type="submit" name="create_game" class="btn" value="Submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="btn back">Back</a></p>
 	</form>
 </div>
@@ -91,13 +109,35 @@
 	<form action="join-game.php" method="post">
 		<p><input type="text" name="username_join" placeholder="Username" class="btn" /></p>
 		<p><input type="number" name="party_join" placeholder="Party Code" class="btn" /></p>
+		
+		<p><input list="questions" id="question" name="question_join" placeholder="What is your favorite color?" class="btn" />
+			<datalist id="questions" placeholder="test" class="btn">
+			  <option value="What is your favorite color?"></option>
+			  <option value="Where did you grow up?"></option>
+			  <option value="What is your favorite genre of music?"></option>
+			  <option value="Apple or Android?"></option>
+			  <option value="What is your favorite food?"></option>
+			  <option value="What is your favorite video game?"></option>
+			  <option value="What is your dream job?"></option>
+			  <option value="Where do you want to live?"></option>
+			  <option value="What was or is your major?"></option>
+			  <option value="Where was your last vacation?"></option>
+			  <option value="What kind of car do you drive?"></option>
+			  <option value="What is your favorite song?"></option>
+			  <option value="What is one of your hobbies?"></option>
+			  <option value="What is your favorite show?"></option>
+			  <option value="Custom"></option>
+			</datalist>
+		</p>
+		<p><input type="text" name="answer_join" placeholder="Red" class="btn" /></p>
+		
 		<p><input type="submit" name="join_game" class="btn" value="Submit" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="btn back">Back</a></p>
 	</form>
 </div>
 
 <!-- Party -->
 <div class="container hide play">
-	<div class="player-list">
+	<div class="player-list" id="player-list">
 		<h1>Party <span class="party-code"><?php echo $_GET['p']; ?></span></h1>
 		<p><span class="players">Players</span> <a href="javascript:void(0)" class="btn refresh" onclick="location.reload();">Refresh List</a></p>
 		<?php include("players.php"); ?>
@@ -122,23 +162,33 @@
 			}
 		}
 		
-		if (empty($target) && isset($_GET['start'])) {
-			header("Location: index.php?gameend");
-		}
-		else {
+		if (isset($_GET['start'])) {
 			echo '<p class="short"><strong>'.$user.'</strong>, your target is <strong>'.$target.'</strong>!</p>';
+		}
+		
+		
+		$sql = "SELECT * FROM users WHERE party='$party' AND name='$target'"; 
+		$result = mysqli_query($conn, $sql);
+		if (mysqli_num_rows($result) > 0) {
+			while($row = mysqli_fetch_assoc($result)) {
+				$target_question = $row['question'];
+				$you_ar = ["your", "you", "yours", "my"];
+				$they_ar   = ["their", "they", "theirs", "their"];
+
+				$final_question = str_replace($you_ar, $they_ar, $target_question);
+			}
 		}
 	?>
 </div>
 
-<div class="container hide start">
-	<?php echo "<p class='short pwd'>Your passcode is <strong>".$pwd."</strong></p>"; ?>
-</div>
+<!--<div class="container hide start">
+	<?php //echo "<p class='short pwd'>Your answer is <strong>".$a."</strong></p>"; ?>
+</div>-->
 
 <div class="container hide start">
 	<div class="status">
 		<div class="elim_button eliminate">
-			<?php echo '<a href="index.php?p='.$party.'&start&defeat"><img src="resources/crosshair-'.$_SESSION["mode"].'.png" alt="crosshair" /></a>'; ?>
+			<?php echo '<a href="index.php?p='.$party.'&start&defeat"><img src="resources/crosshair-dark.png" alt="crosshair" /></a>'; ?>
 		</div>
 	</div>
 </div>
@@ -146,10 +196,10 @@
 <div class="container kill_confirm_menu hide">
 	<?php echo '<form action="eliminate.php?p='.$party.'" method="POST">'; ?>
 		<?php if (isset($_GET['incorrect'])) {
-				echo '<label for="pwd">Wrong passcode!<br><a href="index.php?p='.$party.'&start" class="btn">Okay</a>'; 
+				echo '<label for="pwd">Wrong passcode!<br /><br /><a href="index.php?p='.$party.'&start" class="btn">Okay</a>'; 
 			}
 			else {
-				echo '<label for="pwd">Enter target&#39;s passcode.<br><input type="text" name="pwd" /></label><br><input type="submit" name="submit" value="Confirm" class="btn" /> <a href="index.php?p='.$party.'&start" class="btn">Cancel</a>'; 
+				echo '<label for="pwd">'.$final_question.'<br><input type="text" name="pwd" /></label><br><input type="submit" name="submit" value="Confirm" class="btn" />&nbsp;&nbsp;<a href="index.php?p='.$party.'&start" class="btn">Cancel</a>'; 
 			}
 		?>
 	</form>
@@ -157,7 +207,7 @@
 
 <div class="container hide start">
 	<div class="leave_options">
-		<?php  echo '<p><a href="index.php?p='.$party.'&start&pause=leave" class="btn">Leave Game</a></p>'; ?>
+		<?php  echo '<p><a href="index.php?p='.$party.'&start&pause=leave" class="btn">Leave Game</a></p><br />'; ?>
 		<?php if ($admin == 1) { echo '<p><a href="index.php?p='.$party.'&start&pause=end" class="btn">End Game</a></p>'; } ?>
 	</div>
 </div>
@@ -241,9 +291,16 @@
 			}
 			else if ($row['is_dead'] == 1 && $row['is_active'] == 1) {
 				echo '<script>$(".elim_button").addClass("hide"); $(".short").html("You have been eliminated!"); $(".pwd").hide();</script>';
+				if (!isset($_SESSION['vibration'])) {
+					$_SESSION['vibration'] = 1;
+					echo '<script>window.navigator.vibrate(200);</script>';
+				}
+				else if ($_SESSION['vibration'] >= 1) {
+					
+				}
 			}
 			if ($row['target'] == $user) {
-				echo '<script>$(".elim_button").addClass("hide"); $(".short").html("You win!"); $(".pwd").hide();</script>';
+				echo '<script>$(".elim_button").addClass("hide"); $(".short").html("You win!"); $(".pwd").hide();stopTimer();</script>';
 			}
 			// <a href=&quot;javascript:void(0)&quot;>Share on Facebook?</a>
 		}
@@ -293,18 +350,13 @@ function end_game() {
 	$(".end_confirm").removeClass("hide");
 }
 function createGame() {
-	clearTimeout(timer);
 	$(".menu").addClass("hide");
 	$(".menu-create").attr("style", "display:flex;");
 };
 function joinGame() {
-	clearTimeout(timer);
 	$(".menu").addClass("hide");
 	$(".menu-join").attr("style", "display:flex;");
 };
-function stopTimer() {
-	clearTimeout(timer);
-}
 
 $(".back").mousedown(function() {
 	$(".menu").show();
@@ -326,12 +378,6 @@ $(".eliminate").mousedown(function() {
 
 	if (isset($_GET['start'])) {
 		echo 'gameStart();';
-	}
-
-	if (isset($_SESSION['name']) && !isset($_GET['defeat'])) {
-		echo 'var timer = setTimeout(function() {
-			location.reload();
-		}, 10000);';
 	}
 
 	if (isset($_GET['error'])) {

@@ -10,7 +10,7 @@ document.onreadystatechange = function () {
 			$(".menu-join").attr("style", "display:flex;");
 		});
 		$(".back").mousedown(function() {
-			$(".menu").show();
+			$(".menu").attr("style", "").removeClass("hide");
 			$(".menu-create,.menu-join").hide();
 		});
 		

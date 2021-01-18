@@ -1,9 +1,9 @@
 <?php
 	require("db-login.php");
 	session_start();
-	
-	echo '<!DOCTYPE html><html lang="en" class="'.$_SESSION['mode'].'mode">';
 ?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="Assasin DESC.">
